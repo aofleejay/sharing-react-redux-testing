@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CommentItem /> render correctly 1`] = `"<div class=\\"box\\"><div class=\\"media-content\\"><div class=\\"content\\"><p><strong>title</strong> <small>@john doe</small> <small>31m</small><br/>body</p></div></div></div>"`;

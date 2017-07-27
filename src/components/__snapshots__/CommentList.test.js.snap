@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CommentList /> match its snapshot 1`] = `"<div><div id=\\"comment-list\\"><div class=\\"box\\"><div class=\\"media-content\\"><div class=\\"content\\"><p><strong>title1</strong> <small>author1</small> <small>1m ago</small><br/>body1</p></div></div></div><div class=\\"box\\"><div class=\\"media-content\\"><div class=\\"content\\"><p><strong>title2</strong> <small>author2</small> <small>2m ago</small><br/>body2</p></div></div></div></div><button id=\\"load-more\\" class=\\"button is-primary load-more\\">Load More</button></div>"`;
