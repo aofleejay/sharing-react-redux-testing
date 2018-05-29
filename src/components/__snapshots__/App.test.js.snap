@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test App component Should match its snapshot 1`] = `
+<div
+  className="container"
+>
+  <h1
+    className="title"
+    id="app-title"
+  >
+    Comment List
+  </h1>
+  <hr />
+  <CommentListContainer />
+</div>
+`;

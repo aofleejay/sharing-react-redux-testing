@@ -2,11 +2,13 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import CommentList from './CommentList'
 
-describe('<CommentList />', () => {
+jest.mock('../components/CommentItem', () => 'CommentItem')
+
+describe('Test CommentList component', () => {
   const props = {
     comments: [
-      { title: 'title1', body: 'body1', author: 'author1', postat: '1m ago' },
-      { title: 'title2', body: 'body2', author: 'author2', postat: '2m ago' }
+      { id: 1, title: 'title1', body: 'body1', author: 'author1', postat: '1m ago' },
+      { id: 2, title: 'title2', body: 'body2', author: 'author2', postat: '2m ago' },
     ],
     loadMore: jest.fn(),
   }
@@ -16,20 +18,11 @@ describe('<CommentList />', () => {
     wrapper = shallow(<CommentList {...props} />)
   })
 
-  it('render correct ids', () => {
-    expect(wrapper.find('#comment-list')).toHaveLength(1)
-    expect(wrapper.find('#load-more')).toHaveLength(1)
+  it('Should match its snapshot', () => {
+    expect(wrapper).toMatchSnapshot()
   })
 
-  it('render comments correctly', () => {
-    expect(wrapper.find('CommentItem')).toHaveLength(2)
-  })
-
-  it('match its snapshot', () => {
-    expect(wrapper.html()).toMatchSnapshot()
-  })
-
-  it('call loadMore function when click loadmore button', () => {
+  it('Should call loadMore props when click load more button', () => {
     wrapper.find('#load-more').simulate('click')
     expect(props.loadMore).toHaveBeenCalledTimes(1)
   })

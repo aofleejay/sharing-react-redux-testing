@@ -1,22 +1,28 @@
 import React from 'react'
 import CommentItem from './CommentItem'
 
-const CommentList = props => (
+const CommentList = ({ comments, loadMore }) => (
   <div>
-    <div id="comment-list">
+    <div>
       {
-        props.comments.map((comment, index) => (
+        comments.map(({ id, title, body, author, postat }) => (
           <CommentItem
-            key={`comment-${index}`}
-            title={comment.title}
-            body={comment.body}
-            author={comment.author}
-            postat={comment.postat}
+            key={id}
+            title={title}
+            body={body}
+            author={author}
+            postat={postat}
           />
         ))
       }
     </div>
-    <button id="load-more" className="button is-primary load-more" onClick={props.loadMore}>Load More</button>
+    <button
+      id="load-more"
+      className="button is-primary load-more"
+      onClick={loadMore}
+    >
+      Load More
+    </button>
   </div>
 )
 

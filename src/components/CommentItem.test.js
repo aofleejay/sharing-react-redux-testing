@@ -2,8 +2,8 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import CommentItem from './CommentItem'
 
-describe('<CommentItem />', () => {
-  it('render correctly', () => {
+describe('Test CommentItem component', () => {
+  it('Should match its snapshot', () => {
     const props = {
       title: 'title',
       body: 'body',
@@ -12,6 +12,6 @@ describe('<CommentItem />', () => {
     }
 
     const wrapper = shallow(<CommentItem {...props} />)
-    expect(wrapper.html()).toMatchSnapshot()
+    expect(wrapper).toMatchSnapshot()
   })
 })

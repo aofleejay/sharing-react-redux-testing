@@ -1,13 +1,13 @@
 import React from 'react'
 
-const CommentItem = (props) => (
+const CommentItem = ({ title, author, body, postat }) => (
   <div className="box">
     <div className="media-content">
       <div className="content">
         <p>
-          <strong>{props.title}</strong> <small>{props.author}</small> <small>{props.postat}</small>
+          <strong>{title}</strong> <small>{author}</small> <small>{postat}</small>
           <br />
-          {props.body}
+          {body}
         </p>
       </div>
     </div>
