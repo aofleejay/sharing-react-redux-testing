@@ -5,7 +5,6 @@ import configureMockStore from 'redux-mock-store'
 import axios from 'axios'
 import thunk from 'redux-thunk'
 import { CommentListContainer, mapDispatchToProps, mapStateToProps } from './CommentList'
-import { GET_COMMENTS_SUCCESS } from '../constants/actiontypes.js'
 
 describe('<CommentListContainer />', () => {
   it('contain CommentList component', () => {
@@ -51,7 +50,7 @@ describe('<CommentListContainer />', () => {
     const store = createStore({})
     const { getComments } = mapDispatchToProps(store.dispatch)
     const mockGet = jest.spyOn(axios, 'get').mockResolvedValue({ data: [] })
-    const expectedActions = [{ comments: [], type: GET_COMMENTS_SUCCESS }]
+    const expectedActions = [{ comments: [], type: 'GET_COMMENTS_SUCCESS' }]
     
     getComments().then(() => { 
       expect(store.getActions()).toEqual(expectedActions)
