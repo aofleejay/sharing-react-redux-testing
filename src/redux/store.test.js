@@ -1,8 +1,8 @@
 import store from './store'
 
-describe('store', () => {
-  it('get initial state correctly', () => {
-    const actual = store.getState()
-    expect(actual).toEqual({ comments: [] })
+describe('Test redux store', () => {
+  it('Should return initial state correctly', () => {
+    const initialStates = store.getState()
+    expect(initialStates).toMatchSnapshot()
   })
 })

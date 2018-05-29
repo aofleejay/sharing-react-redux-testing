@@ -4,30 +4,42 @@ import axios from 'axios'
 import commentReducer, { receiveComments, getComments } from './comment'
 
 describe('Test comment actions', () => {
-  const fake = {
-    comments: [
-      { title: 'title1', body: 'body1', author: 'author1', postat: '1m' },
-      { title: 'title2', body: 'body2', author: 'author2', postat: '2m' },
-    ]
-  }
+  const comments = [
+    { title: 'title1', body: 'body1', author: 'author1', postat: '1m' },
+    { title: 'title2', body: 'body2', author: 'author2', postat: '2m' },
+  ]
 
-  afterEach(() => {
-    jest.restoreAllMocks()
+  describe('Test receiveComments action creator', () => {
+    it('Should return GET_COMMENTS_SUCCESS action', () => {  
+      const actual = receiveComments(comments)
+    
+      expect(actual).toMatchSnapshot()
+    })
   })
 
-  it('receiveComments action creator return correct action', () => {  
-    const actual = receiveComments(fake.comments)
+  describe('Test getComments asychronous action creator', () => {
+    afterEach(() => {
+      jest.restoreAllMocks()
+    })
+
+    it('Should dispatch GET_COMMENTS_SUCCESS action when promise resovled', () => {
+      const mockStore = configureMockStore([thunk])
+      const store = mockStore({ comments: [] })
+      const mockGet = jest.spyOn(axios, 'get').mockResolvedValue({ data: comments })
   
-    expect(actual).toMatchSnapshot()
-  })
+      store.dispatch(getComments()).then(() => {
+        expect(store.getActions()).toMatchSnapshot()
+      })
+    })
 
-  it('getComments dispatch action correctly', () => {
-    const mockStore = configureMockStore([thunk])
-    const store = mockStore({ comments: [] })
-    const mockGet = jest.spyOn(axios, 'get').mockResolvedValue({ data: fake.comments })
-
-    store.dispatch(getComments()).then(() => {
-      expect(store.getActions()).toMatchSnapshot()
+    it('Should dispatch GET_COMMENTS_FAILED action when promise rejected', () => {
+      const mockStore = configureMockStore([thunk])
+      const store = mockStore({ comments: [] })
+      const mockGet = jest.spyOn(axios, 'get').mockRejectedValue()
+  
+      store.dispatch(getComments()).then(() => {
+        expect(store.getActions()).toMatchSnapshot()
+      })
     })
   })
 })

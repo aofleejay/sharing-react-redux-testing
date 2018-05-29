@@ -1,6 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test comment actions getComments dispatch action correctly 1`] = `
+exports[`Test comment actions Test getComments asychronous action creator Should dispatch GET_COMMENTS_FAILED action when promise rejected 1`] = `
+Array [
+  Object {
+    "type": "GET_COMMENTS_FAILED",
+  },
+]
+`;
+
+exports[`Test comment actions Test getComments asychronous action creator Should dispatch GET_COMMENTS_SUCCESS action when promise resovled 1`] = `
 Array [
   Object {
     "comments": Array [
@@ -22,7 +30,7 @@ Array [
 ]
 `;
 
-exports[`Test comment actions receiveComments action creator return correct action 1`] = `
+exports[`Test comment actions Test receiveComments action creator Should return GET_COMMENTS_SUCCESS action 1`] = `
 Object {
   "comments": Array [
     Object {

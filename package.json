@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "npm-run-all --parallel json-server dev-server",
-    "test": "jest --watch",
+    "test": "jest --watch --verbose",
     "dev-server": "webpack-dev-server",
     "json-server": "json-server --watch db.json"
   },
