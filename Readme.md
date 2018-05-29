@@ -1,13 +1,8 @@
-# React/Redux Testing Workshop #
+# React/Redux Testing #
+How to write a test in React and Redux with Jest.
 
-## install dependency ##
-
-`yarn` or `npm install`
-
-## start project ##
-
-`yarn start` or `npm start`
-
-## test ##
-
-`yarn test` or `npm test`
+## To start project ##
+```
+yarn
+yarn test
+```
