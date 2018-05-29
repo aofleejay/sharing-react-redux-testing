@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test comment actions getComments dispatch action correctly 1`] = `
+Array [
+  Object {
+    "comments": Array [
+      Object {
+        "author": "author1",
+        "body": "body1",
+        "postat": "1m",
+        "title": "title1",
+      },
+      Object {
+        "author": "author2",
+        "body": "body2",
+        "postat": "2m",
+        "title": "title2",
+      },
+    ],
+    "type": "GET_COMMENTS_SUCCESS",
+  },
+]
+`;
+
+exports[`Test comment actions receiveComments action creator return correct action 1`] = `
+Object {
+  "comments": Array [
+    Object {
+      "author": "author1",
+      "body": "body1",
+      "postat": "1m",
+      "title": "title1",
+    },
+    Object {
+      "author": "author2",
+      "body": "body2",
+      "postat": "2m",
+      "title": "title2",
+    },
+  ],
+  "type": "GET_COMMENTS_SUCCESS",
+}
+`;
+
+exports[`Test comment reducer Should return empty array when action type is GET_COMMENTS_FAILED 1`] = `Array []`;
+
+exports[`Test comment reducer Should return initial state when action type is OTHER_ACTION_TYPE 1`] = `Array []`;
+
+exports[`Test comment reducer Should return new comment list when action type is GET_COMMENTS_SUCCESS 1`] = `
+Array [
+  Object {
+    "body": "body1",
+    "title": "title1",
+  },
+]
+`;

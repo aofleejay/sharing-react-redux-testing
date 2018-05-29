@@ -4,30 +4,30 @@ import axios from 'axios'
 import commentReducer, { receiveComments, getComments } from './comment'
 
 describe('Test comment actions', () => {
-  const comments = [
-    { title: 'title1', body: 'body1', author: 'author1', postat: '1m' },
-    { title: 'title2', body: 'body2', author: 'author2', postat: '2m' },
-  ]
+  const fake = {
+    comments: [
+      { title: 'title1', body: 'body1', author: 'author1', postat: '1m' },
+      { title: 'title2', body: 'body2', author: 'author2', postat: '2m' },
+    ]
+  }
 
   afterEach(() => {
     jest.restoreAllMocks()
   })
 
-  it('receiveComments action creator return correct action', () => {
-    const expected = { type: 'GET_COMMENTS_SUCCESS', comments: comments }
+  it('receiveComments action creator return correct action', () => {  
+    const actual = receiveComments(fake.comments)
   
-    const actual = receiveComments(comments)
-  
-    expect(actual).toEqual(expected)
+    expect(actual).toMatchSnapshot()
   })
 
   it('getComments dispatch action correctly', () => {
     const mockStore = configureMockStore([thunk])
     const store = mockStore({ comments: [] })
-    const mockGet = jest.spyOn(axios, 'get').mockResolvedValue({ data: comments })
+    const mockGet = jest.spyOn(axios, 'get').mockResolvedValue({ data: fake.comments })
 
     store.dispatch(getComments()).then(() => {
-      expect(store.getActions()).toEqual([{ type: 'GET_COMMENTS_SUCCESS', comments: comments }])
+      expect(store.getActions()).toMatchSnapshot()
     })
   })
 })
@@ -42,24 +42,20 @@ describe('Test comment reducer', () => {
         { title: 'title1', body: 'body1' }
       ]
     }
-    const expected = [
-      { title: 'title1', body: 'body1' }
-    ]
     
     const actual = commentReducer(initialState, action)
 
-    expect(actual).toEqual(expected)
+    expect(actual).toMatchSnapshot()
   })
 
   it('Should return empty array when action type is GET_COMMENTS_FAILED', () => {
     const action = {
       type: 'GET_COMMENT_FAILED',
     }
-    const expected = []
 
     const actual = commentReducer(initialState, action)
 
-    expect(actual).toEqual(expected)
+    expect(actual).toMatchSnapshot()
   })
 
   it('Should return initial state when action type is OTHER_ACTION_TYPE', () => {
@@ -69,6 +65,6 @@ describe('Test comment reducer', () => {
 
     const actual = commentReducer(initialState, action)
 
-    expect(actual).toEqual(initialState)
+    expect(actual).toMatchSnapshot()
   })
 })
