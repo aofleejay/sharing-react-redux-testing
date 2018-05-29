@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test CommentList container Should match its snapshot 1`] = `
+<CommentList
+  comments={
+    Array [
+      Object {
+        "author": "author1",
+        "body": "body1",
+        "id": 1,
+        "postat": "1m ago",
+        "title": "title1",
+      },
+      Object {
+        "author": "author2",
+        "body": "body2",
+        "id": 2,
+        "postat": "2m ago",
+        "title": "title2",
+      },
+    ]
+  }
+  loadMore={[Function]}
+/>
+`;
+
+exports[`Test CommentList container Test mapStateToProps function Should map comments state to prop 1`] = `
+Object {
+  "comments": Array [
+    Object {
+      "author": "author1",
+      "body": "body1",
+      "postat": "1m",
+      "title": "title1",
+    },
+    Object {
+      "author": "author2",
+      "body": "body2",
+      "postat": "2m",
+      "title": "title2",
+    },
+  ],
+}
+`;

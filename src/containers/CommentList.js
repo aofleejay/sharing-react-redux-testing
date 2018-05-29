@@ -18,9 +18,7 @@ export class CommentListContainer extends Component {
   }
 }
 
-export const mapStateToProps = state => ({
-  comments: state.comments,
-})
+export const mapStateToProps = ({ comments }) => ({ comments })
 
 export const mapDispatchToProps = dispatch => ({
   getComments: () => dispatch(getComments()),

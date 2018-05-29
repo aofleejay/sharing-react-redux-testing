@@ -1,59 +1,65 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
-import { Provider } from 'react-redux'
-import configureMockStore from 'redux-mock-store'
-import axios from 'axios'
-import thunk from 'redux-thunk'
+import { shallow } from 'enzyme'
 import { CommentListContainer, mapDispatchToProps, mapStateToProps } from './CommentList'
+import * as actions from '../redux/comment'
 
-describe('<CommentListContainer />', () => {
-  it('contain CommentList component', () => {
-    const wrapper = shallow(<CommentListContainer />, { disableLifecycleMethods: true })
-    expect(wrapper.find('CommentList')).toHaveLength(1)
+jest.mock('../components/CommentList', () => 'CommentList')
+jest.mock('../redux/comment')
+
+describe('Test CommentList container', () => {
+  const props = {
+    comments: [
+      { id: 1, title: 'title1', body: 'body1', author: 'author1', postat: '1m ago' },
+      { id: 2, title: 'title2', body: 'body2', author: 'author2', postat: '2m ago' },
+    ],
+    getComments: () => {},
+  }
+
+  it('Should match its snapshot', () => {
+    const wrapper = shallow(<CommentListContainer {...props} />, { disableLifecycleMethods: true })
+
+    expect(wrapper).toMatchSnapshot()
   })
 
-  it('call getComments once after mount', () => {
-    const props = {
-      comments: [],
-      getComments: jest.fn(),
-    }
-  
-    const createStore = configureMockStore()
-    const store = createStore({})
-    const wrapper = mount(
-      <Provider store={store}>
-        <CommentListContainer {...props} />
-      </Provider>
-    )
-  
-    expect(props.getComments).toHaveBeenCalledTimes(1)
-  })
+  describe('Test componentDidMount', () => {
+    afterEach(() => {
+      jest.restoreAllMocks()
+    })
 
-  it('subscribe state correctly', () => {
-    const state = { 
-      comments: [
-        { title: 'title1', body: 'body1', author: 'author1', postat: '1m' },
-        { title: 'title2', body: 'body2', author: 'author2', postat: '2m' },
-      ],
-    }
-    const subscribeState = mapStateToProps(state)
-    expect(subscribeState).toEqual({ 
-      comments: [
-        { title: 'title1', body: 'body1', author: 'author1', postat: '1m' },
-        { title: 'title2', body: 'body2', author: 'author2', postat: '2m' },
-      ],
+    it('Should call getComments once', () => {
+      props.getComments = jest.fn()
+      const instance = shallow(<CommentListContainer {...props} />, { disableLifecycleMethods: true }).instance()
+  
+      instance.componentDidMount()
+    
+      expect(props.getComments).toHaveBeenCalledTimes(1)
     })
   })
+  
+  describe('Test mapStateToProps function', () => {
+    it('Should map comments state to prop', () => {
+      const state = { 
+        comments: [
+          { title: 'title1', body: 'body1', author: 'author1', postat: '1m' },
+          { title: 'title2', body: 'body2', author: 'author2', postat: '2m' },
+        ],
+      }
 
-  it('map dispatch to props correctly', () => {
-    const createStore = configureMockStore([thunk])
-    const store = createStore({})
-    const { getComments } = mapDispatchToProps(store.dispatch)
-    const mockGet = jest.spyOn(axios, 'get').mockResolvedValue({ data: [] })
-    const expectedActions = [{ comments: [], type: 'GET_COMMENTS_SUCCESS' }]
-    
-    getComments().then(() => { 
-      expect(store.getActions()).toEqual(expectedActions)
+      const subscribeState = mapStateToProps(state)
+
+      expect(subscribeState).toMatchSnapshot()
+    })
+  })
+  
+  describe('Test mapDispatchToProps function',() => {
+    it('Shouldmap dispatch to props correctly', () => {
+      const spyDispatch = jest.fn()
+      const { getComments } = mapDispatchToProps(spyDispatch)
+      
+      getComments()
+
+      expect(spyDispatch).toHaveBeenCalledTimes(1)
+      expect(actions.getComments).toHaveBeenCalledTimes(1)
     })
   })
 })
