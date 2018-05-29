@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import nock from 'nock'
+import axios from 'axios'
 import { receiveComments, getComments } from './comments'
 
 describe('comments action', () => {
@@ -10,7 +10,7 @@ describe('comments action', () => {
   ]
 
   afterEach(() => {
-    nock.cleanAll()
+    jest.restoreAllMocks()
   })
 
   it('receiveComments action creator return correct action', () => {
@@ -24,7 +24,7 @@ describe('comments action', () => {
   it('getComments dispatch action correctly', () => {
     const mockStore = configureMockStore([thunk])
     const store = mockStore({ comments: [] })
-    nock('http://localhost:3000/').get('/comments').reply(200, comments)
+    const mockGet = jest.spyOn(axios, 'get').mockResolvedValue({ data: comments })
 
     store.dispatch(getComments()).then(() => {
       expect(store.getActions()).toEqual([{ type: 'GET_COMMENTS_SUCCESS', comments: comments }])

@@ -2,14 +2,14 @@ import React from 'react'
 import { shallow, mount } from 'enzyme'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
+import axios from 'axios'
 import thunk from 'redux-thunk'
-import nock from 'nock'
 import { CommentListContainer, mapDispatchToProps, mapStateToProps } from './CommentList'
 import { GET_COMMENTS_SUCCESS } from '../constants/actiontypes.js'
 
 describe('<CommentListContainer />', () => {
   it('contain CommentList component', () => {
-    const wrapper = shallow(<CommentListContainer />)
+    const wrapper = shallow(<CommentListContainer />, { disableLifecycleMethods: true })
     expect(wrapper.find('CommentList')).toHaveLength(1)
   })
 
@@ -50,7 +50,7 @@ describe('<CommentListContainer />', () => {
     const createStore = configureMockStore([thunk])
     const store = createStore({})
     const { getComments } = mapDispatchToProps(store.dispatch)
-    nock('http://localhost:3000/').get('/comments').reply(200, [])
+    const mockGet = jest.spyOn(axios, 'get').mockResolvedValue({ data: [] })
     const expectedActions = [{ comments: [], type: GET_COMMENTS_SUCCESS }]
     
     getComments().then(() => { 
