@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import App from './components/App'
 import store from './redux/store'
+import bulma from 'bulma/css/bulma.min.css'
+import './index.css'
 
 ReactDOM.render(
   <Provider store={store}>

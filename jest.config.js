@@ -1,4 +1,4 @@
 module.exports = {
-  snapshotSerializers: ["enzyme-to-json/serializer"],
-  setupTestFrameworkScriptFile: '<rootDir>/setupTests.js',
+  snapshotSerializers: ['enzyme-to-json/serializer'],
+  setupTestFrameworkScriptFile: '<rootDir>/src/setupTests.js',
 }

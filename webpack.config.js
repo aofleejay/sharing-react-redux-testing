@@ -1,30 +1,39 @@
 const { resolve } = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
-  devtool: 'source-map',
-  entry: [
-    resolve(__dirname, 'src/index.js'),
-  ],
+  entry: './src/index.js',
   output: {
-    publicPath: 'dist/',
-    path: resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    path: resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
+        include: /(src)/,
         use: [
           'babel-loader',
         ],
-        exclude: /(node_modules)/,
-      }
-    ]
+      },
+      {
+        test: /\.css$/,
+        include: [
+          resolve(__dirname, "src"),
+          resolve(__dirname, "node_modules/bulma")
+        ],
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+        ],
+      },
+    ],
   },
-  devServer: {
-    host: '0.0.0.0',
-    inline: true,
-    port: 8081,
-    historyApiFallback: true,
-  },
+  plugins: [
+    new CleanWebpackPlugin(['dist']),
+    new HtmlWebpackPlugin({
+      template: 'public/index.html',
+    }),
+  ],
 }
