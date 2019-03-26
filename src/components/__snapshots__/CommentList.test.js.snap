@@ -6,14 +6,12 @@ exports[`Test CommentList component Should match its snapshot 1`] = `
     <CommentItem
       author="author1"
       body="body1"
-      key="1"
       postat="1m ago"
       title="title1"
     />
     <CommentItem
       author="author2"
       body="body2"
-      key="2"
       postat="2m ago"
       title="title2"
     />

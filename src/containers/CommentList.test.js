@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { create } from 'react-test-renderer'
 import { CommentListContainer, mapDispatchToProps, mapStateToProps } from './CommentList'
 import * as actions from '../redux/comment'
 
@@ -16,7 +16,7 @@ describe('Test CommentList container', () => {
   }
 
   it('Should match its snapshot', () => {
-    const wrapper = shallow(<CommentListContainer {...props} />, { disableLifecycleMethods: true })
+    const wrapper = create(<CommentListContainer {...props} />)
 
     expect(wrapper).toMatchSnapshot()
   })
@@ -28,10 +28,8 @@ describe('Test CommentList container', () => {
 
     it('Should call getComments once', () => {
       props.getComments = jest.fn()
-      const instance = shallow(<CommentListContainer {...props} />, { disableLifecycleMethods: true }).instance()
-  
-      instance.componentDidMount()
-    
+      create(<CommentListContainer {...props} />)
+
       expect(props.getComments).toHaveBeenCalledTimes(1)
     })
   })

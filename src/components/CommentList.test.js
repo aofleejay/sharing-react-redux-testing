@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { create } from 'react-test-renderer'
 import CommentList from './CommentList'
 
 jest.mock('../components/CommentItem', () => 'CommentItem')
@@ -15,7 +15,7 @@ describe('Test CommentList component', () => {
   let wrapper
   
   beforeEach(() => {
-    wrapper = shallow(<CommentList {...props} />)
+    wrapper = create(<CommentList {...props} />)
   })
 
   it('Should match its snapshot', () => {
@@ -23,7 +23,7 @@ describe('Test CommentList component', () => {
   })
 
   it('Should call loadMore props when click load more button', () => {
-    wrapper.find('#load-more').simulate('click')
+    wrapper.root.findByProps({ id: 'load-more' }).props.onClick()
     expect(props.loadMore).toHaveBeenCalledTimes(1)
   })
 })

@@ -10,7 +10,7 @@ export class CommentListContainer extends Component {
 
   render() {
     return (
-      <CommentList 
+      <CommentList
         comments={this.props.comments}
         loadMore={this.props.getComments}
       />

@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { create } from 'react-test-renderer'
 import CommentItem from './CommentItem'
 
 describe('Test CommentItem component', () => {
@@ -11,7 +11,7 @@ describe('Test CommentItem component', () => {
       postat: '31m',
     }
 
-    const wrapper = shallow(<CommentItem {...props} />)
+    const wrapper = create(<CommentItem {...props} />)
     expect(wrapper).toMatchSnapshot()
   })
 })

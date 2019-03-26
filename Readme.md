@@ -1,8 +1,18 @@
 # React/Redux Testing #
-How to write a test in React and Redux with Jest.
+How to write test in React and Redux.
 
-## To start project ##
-```
-yarn
-yarn test
-```
+## 🚀 Quick start
+-  **Install dependencies**
+    ```
+    yarn
+    ```
+
+-  **Run test**
+    ```
+    yarn test
+    ```
+
+-  **View your site locally**
+    ```
+    yarn develop
+    ```
