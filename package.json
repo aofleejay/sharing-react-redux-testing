@@ -20,7 +20,7 @@
     "redux testing",
     "react redux testing"
   ],
-  "author": "Kunapot Pairat",
+  "author": "aofleejay",
   "license": "MIT",
   "dependencies": {
     "axios": "0.18.0",
