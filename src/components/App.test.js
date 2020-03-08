@@ -8,6 +8,19 @@ describe('Test App component', () => {
   it('Should match its snapshot', () => {
     const wrapper = create(<App />)
 
-    expect(wrapper).toMatchSnapshot()
+    expect(wrapper).toMatchInlineSnapshot(`
+<div
+  className="container"
+>
+  <h1
+    className="title"
+    id="app-title"
+  >
+    Comment List
+  </h1>
+  <hr />
+  <CommentListContainer />
+</div>
+`)
   })
 })

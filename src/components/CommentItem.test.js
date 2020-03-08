@@ -12,6 +12,34 @@ describe('Test CommentItem component', () => {
     }
 
     const wrapper = create(<CommentItem {...props} />)
-    expect(wrapper).toMatchSnapshot()
+    expect(wrapper).toMatchInlineSnapshot(`
+<div
+  className="box"
+>
+  <div
+    className="media-content"
+  >
+    <div
+      className="content"
+    >
+      <p>
+        <strong>
+          title
+        </strong>
+         
+        <small>
+          @john doe
+        </small>
+         
+        <small>
+          31m
+        </small>
+        <br />
+        body
+      </p>
+    </div>
+  </div>
+</div>
+`)
   })
 })
