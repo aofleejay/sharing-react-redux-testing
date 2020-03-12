@@ -34,3 +34,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update all dependencies.
 - Use `toEqual` instead of snapshot testing for unit testing of `actions`, `reducers` and `store` to keep test code and result in same file.
+- Find element instead of snapshot testing to avoid fragile testing.
