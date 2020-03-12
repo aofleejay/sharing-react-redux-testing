@@ -1,26 +1,14 @@
 import React from 'react'
-import { create } from 'react-test-renderer'
+import { render } from '@testing-library/react'
+import '@testing-library/jest-dom'
 import App from './App'
 
-jest.mock('../containers/CommentList.js', () => 'CommentListContainer')
+jest.mock('../containers/CommentList', () => 'comment-list')
 
 describe('Test App component', () => {
-  it('Should match its snapshot', () => {
-    const wrapper = create(<App />)
+  it('Should render correct header', () => {
+    const { getByText } = render(<App />)
 
-    expect(wrapper).toMatchInlineSnapshot(`
-<div
-  className="container"
->
-  <h1
-    className="title"
-    id="app-title"
-  >
-    Comment List
-  </h1>
-  <hr />
-  <CommentListContainer />
-</div>
-`)
+    expect(getByText(/comment list/i)).toBeInTheDocument()
   })
 })
