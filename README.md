@@ -2,6 +2,10 @@
 
 How to write test in React and Redux.
 
+## 🎨 UI
+
+![UI](ui.gif)
+
 ## 🚀 Quick start
 
 - **Install dependencies**
