@@ -59,19 +59,6 @@ describe('Test CommentList container', () => {
 `)
   })
 
-  describe('Test componentDidMount', () => {
-    afterEach(() => {
-      jest.restoreAllMocks()
-    })
-
-    it('Should call getComments once', () => {
-      props.getComments = jest.fn()
-      create(<CommentListContainer {...props} />)
-
-      expect(props.getComments).toHaveBeenCalledTimes(1)
-    })
-  })
-
   describe('Test mapStateToProps function', () => {
     it('Should map comments state to prop', () => {
       const state = {
