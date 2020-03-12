@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Test redux store Should return initial state correctly 1`] = `
-Object {
-  "comments": Array [],
-}
-`;
