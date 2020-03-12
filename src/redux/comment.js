@@ -11,8 +11,8 @@ const commentReducer = (state = initialState, action) => {
       return [...state, ...action.comments]
 
     case GET_COMMENTS_FAILED:
-      return []
-  
+      return state
+
     default:
       return state
   }
@@ -23,14 +23,12 @@ const receiveComments = comments => ({
   comments: comments,
 })
 
-const getComments = () => (
-  dispatch => (
-    axios.get('http://localhost:3000/comments')
+const getComments = () => dispatch =>
+  axios
+    .get('http://localhost:3000/comments')
     .then(response => response.data)
-    .then(comments => (dispatch(receiveComments(comments))))
-    .catch(() => (dispatch({ type: GET_COMMENTS_FAILED })))
-  )
-)
+    .then(comments => dispatch(receiveComments(comments)))
+    .catch(() => dispatch({ type: GET_COMMENTS_FAILED }))
 
 export { receiveComments, getComments }
 export default commentReducer
