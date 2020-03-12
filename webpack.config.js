@@ -1,6 +1,6 @@
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
@@ -13,20 +13,15 @@ module.exports = {
       {
         test: /\.jsx?$/,
         include: /(src)/,
-        use: [
-          'babel-loader',
-        ],
+        use: ['babel-loader'],
       },
       {
         test: /\.css$/,
         include: [
-          resolve(__dirname, "src"),
-          resolve(__dirname, "node_modules/bulma")
+          resolve(__dirname, 'src'),
+          resolve(__dirname, 'node_modules/bulma'),
         ],
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-        ],
+        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
       },
     ],
   },
