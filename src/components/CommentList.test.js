@@ -1,8 +1,6 @@
 import React from 'react'
-import { create } from 'react-test-renderer'
+import { render, fireEvent } from '@testing-library/react'
 import CommentList from './CommentList'
-
-jest.mock('../components/CommentItem', () => 'CommentItem')
 
 describe('Test CommentList component', () => {
   const props = {
@@ -24,42 +22,13 @@ describe('Test CommentList component', () => {
     ],
     loadMore: jest.fn(),
   }
-  let wrapper
-
-  beforeEach(() => {
-    wrapper = create(<CommentList {...props} />)
-  })
-
-  it('Should match its snapshot', () => {
-    expect(wrapper).toMatchInlineSnapshot(`
-<div>
-  <div>
-    <CommentItem
-      author="author1"
-      body="body1"
-      postat="1m ago"
-      title="title1"
-    />
-    <CommentItem
-      author="author2"
-      body="body2"
-      postat="2m ago"
-      title="title2"
-    />
-  </div>
-  <button
-    className="button is-primary load-more"
-    id="load-more"
-    onClick={[MockFunction]}
-  >
-    Load More
-  </button>
-</div>
-`)
-  })
 
   it('Should call loadMore props when click load more button', () => {
-    wrapper.root.findByProps({ id: 'load-more' }).props.onClick()
+    const { getByText } = render(<CommentList {...props} />)
+    const loadMoreButton = getByText(/load more/i)
+
+    fireEvent.click(loadMoreButton)
+
     expect(props.loadMore).toHaveBeenCalledTimes(1)
   })
 })
