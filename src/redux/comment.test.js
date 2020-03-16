@@ -71,9 +71,8 @@ describe('Test comment actions', () => {
 })
 
 describe('Test comment reducer', () => {
-  const initialState = []
-
   it('Should return new comment list when action type is GET_COMMENTS_SUCCESS', () => {
+    const initialState = []
     const action = {
       type: 'GET_COMMENTS_SUCCESS',
       comments: [{ title: 'title1', body: 'body1' }],
@@ -85,6 +84,7 @@ describe('Test comment reducer', () => {
   })
 
   it('Should return empty array when action type is GET_COMMENTS_FAILED', () => {
+    const initialState = []
     const action = {
       type: 'GET_COMMENTS_FAILED',
     }
@@ -95,12 +95,13 @@ describe('Test comment reducer', () => {
   })
 
   it('Should return initial state when action type is OTHER_ACTION_TYPE', () => {
+    const initialState = [{ title: 'title1' }]
     const action = {
       type: 'OTHER_ACTION_TYPE',
     }
 
     const actual = commentReducer(initialState, action)
 
-    expect(actual).toEqual([])
+    expect(actual).toEqual(initialState)
   })
 })
