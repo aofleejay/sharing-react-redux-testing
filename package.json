@@ -8,6 +8,8 @@
     "build": "webpack --mode=production",
     "develop": "npm-run-all --parallel json-server dev-server",
     "test": "jest",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
     "dev-server": "webpack-dev-server --hot --inline --mode=development",
     "json-server": "json-server --watch db.json"
   },
@@ -40,6 +42,7 @@
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.4.2",
+    "cypress": "^4.1.0",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^4.2.3",
     "jest": "^25.1.0",
