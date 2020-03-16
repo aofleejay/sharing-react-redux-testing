@@ -1,105 +1,65 @@
 import React from 'react'
-import { create } from 'react-test-renderer'
-import {
-  CommentListContainer,
-  mapDispatchToProps,
-  mapStateToProps,
-} from './CommentList'
-import * as actions from '../redux/comment'
+import { Provider } from 'react-redux'
+import { render, fireEvent, waitForElement } from '@testing-library/react'
+import '@testing-library/jest-dom/extend-expect'
+import axios from 'axios'
+import CommentList from '../containers/CommentList'
+import store from '../redux/store'
 
-jest.mock('../components/CommentList', () => 'CommentList')
-jest.mock('../redux/comment')
+jest.mock('axios', () => ({
+  get: jest
+    .fn()
+    .mockImplementationOnce(() =>
+      Promise.resolve({
+        data: [
+          {
+            userId: 1,
+            id: 1,
+            title:
+              'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+            body:
+              'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto',
+            author: '@johnsmith',
+            postat: '31m',
+          },
+        ],
+      }),
+    )
+    .mockImplementationOnce(() =>
+      Promise.resolve({
+        data: [
+          {
+            userId: 1,
+            id: 2,
+            title:
+              'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+            body:
+              'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto',
+            author: '@johnsmith',
+            postat: '31m',
+          },
+        ],
+      }),
+    ),
+}))
+
+afterEach(() => {
+  jest.clearAllMocks()
+})
 
 describe('Test CommentList container', () => {
-  const props = {
-    comments: [
-      {
-        id: 1,
-        title: 'title1',
-        body: 'body1',
-        author: 'author1',
-        postat: '1m ago',
-      },
-      {
-        id: 2,
-        title: 'title2',
-        body: 'body2',
-        author: 'author2',
-        postat: '2m ago',
-      },
-    ],
-    getComments: () => {},
-  }
+  it('Should render three item when click load more two times', async () => {
+    const { getByText, getAllByText, debug, container } = render(
+      <Provider store={store}>
+        <CommentList />
+      </Provider>,
+    )
 
-  it('Should match its snapshot', () => {
-    const wrapper = create(<CommentListContainer {...props} />)
+    const loadMoreButton = getByText(/load more/i)
+    fireEvent.click(loadMoreButton)
 
-    expect(wrapper).toMatchInlineSnapshot(`
-<CommentList
-  comments={
-    Array [
-      Object {
-        "author": "author1",
-        "body": "body1",
-        "id": 1,
-        "postat": "1m ago",
-        "title": "title1",
-      },
-      Object {
-        "author": "author2",
-        "body": "body2",
-        "id": 2,
-        "postat": "2m ago",
-        "title": "title2",
-      },
-    ]
-  }
-  loadMore={[Function]}
-/>
-`)
-  })
-
-  describe('Test mapStateToProps function', () => {
-    it('Should map comments state to prop', () => {
-      const state = {
-        comments: [
-          { title: 'title1', body: 'body1', author: 'author1', postat: '1m' },
-          { title: 'title2', body: 'body2', author: 'author2', postat: '2m' },
-        ],
-      }
-
-      const subscribeState = mapStateToProps(state)
-
-      expect(subscribeState).toMatchInlineSnapshot(`
-Object {
-  "comments": Array [
-    Object {
-      "author": "author1",
-      "body": "body1",
-      "postat": "1m",
-      "title": "title1",
-    },
-    Object {
-      "author": "author2",
-      "body": "body2",
-      "postat": "2m",
-      "title": "title2",
-    },
-  ],
-}
-`)
-    })
-  })
-
-  describe('Test mapDispatchToProps function', () => {
-    it('Shouldmap dispatch to props correctly', () => {
-      const spyDispatch = jest.fn()
-      const { getComments } = mapDispatchToProps(spyDispatch)
-
-      getComments()
-
-      expect(spyDispatch).toHaveBeenCalledTimes(1)
-      expect(actions.getComments).toHaveBeenCalledTimes(1)
-    })
+    const commentItems = await waitForElement(() => getAllByText(/sunt/gi))
+    expect(commentItems).toHaveLength(2)
+    expect(axios.get).toHaveBeenCalledTimes(2)
   })
 })
