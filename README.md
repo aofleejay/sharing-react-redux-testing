@@ -16,8 +16,16 @@ How to write test in React and Redux.
 
 - **Run test**
 
+  - **_Jest_**
+
   ```
   yarn test
+  ```
+
+  - **_Cypress_**
+
+  ```
+  yarn cy:open
   ```
 
 - **View your site locally**
