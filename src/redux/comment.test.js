@@ -86,7 +86,7 @@ describe('Test comment reducer', () => {
 
   it('Should return empty array when action type is GET_COMMENTS_FAILED', () => {
     const action = {
-      type: 'GET_COMMENT_FAILED',
+      type: 'GET_COMMENTS_FAILED',
     }
 
     const actual = commentReducer(initialState, action)
